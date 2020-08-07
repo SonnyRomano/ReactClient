@@ -29,7 +29,7 @@ export default class Login extends Component {
         };
         console.log(user);
 
-        axios.post(`http://127.0.0.1:9000/users/login`, { user })
+        axios.post(`https://team-mars-server.herokuapp.com/users/login`, { user })
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -44,7 +44,7 @@ export default class Login extends Component {
 
             })
             .catch(err => {
-                console.log("Error = ", err.response.data);
+                console.log("Error = ", err);
                 alert(err.response.data);
             })
     }
