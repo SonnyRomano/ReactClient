@@ -69,7 +69,7 @@ export default class DettaglioAnnuncio extends Component {
         this.datiPrenotazione = this.props.location.state[1];
 
         // Carica le immagini dell'annuncio dentro listOfImages
-        const path = require.context('../../../images', true)
+        const path = require.context('../../images', true)
         for (let i = 0; i < 5; i++) {
             try {
                 this.listOfImages.push(path('./ID' + this.state.idAnnuncio + '/img' + i + '.png'))
@@ -98,7 +98,7 @@ export default class DettaglioAnnuncio extends Component {
                             <div className="container">
                                 <div className="row">
                                     <div className="col-md-7">
-                                        <img className="img-fluid" style={{ width: '100%', padding: '1.3rem' }} key={'img' + this.state.idAnnuncio} src={require('../../../images/ID' + this.state.idAnnuncio + '/Cover.png')} alt="CoverImage" ></img>
+                                        <img className="img-fluid" style={{ width: '100%', padding: '1.3rem' }} key={'img' + this.state.idAnnuncio} src={require('../../images/ID' + this.state.idAnnuncio + '/Cover.png')} alt="CoverImage" ></img>
                                     </div>
                                     <div className="col-md-5">
                                         <h4 className="my-3">Descrizione:</h4>
