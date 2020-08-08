@@ -69,7 +69,7 @@ export default class DettaglioAnnuncio extends Component {
         this.datiPrenotazione = this.props.location.state[1];
 
         // Carica le immagini dell'annuncio dentro listOfImages
-        const path = require.context('../../images', true)
+        const path = require.context('https://team-mars.s3.eu-west-3.amazonaws.com/images', true)
         for (let i = 0; i < 5; i++) {
             try {
                 this.listOfImages.push(path('./ID' + this.state.idAnnuncio + '/img' + i + '.png'))
