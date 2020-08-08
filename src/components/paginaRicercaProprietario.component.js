@@ -13,7 +13,7 @@ export default class PaginaRicercaProprietario extends Component {
         let idProprietario = sessionStorage.getItem('id')
 
         //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
-        axios.post(`http://team-mars-server.herokuapp.com/gestioneAnnunci/ricercaAnnunciProprietario`, { idProprietario })
+        axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/ricercaAnnunciProprietario`, { idProprietario })
             .then(res => {
                 console.log(res);
                 console.log(res.data);

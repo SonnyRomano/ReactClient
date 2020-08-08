@@ -49,7 +49,7 @@ export default class DettaglioAnnuncio extends Component {
         console.log(prenotazione);
 
         //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
-        axios.post(`http://team-mars-server.herokuapp.com/gestionePrenotazioni/effettuaPrenotazione`, { prenotazione })
+        axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/effettuaPrenotazione`, { prenotazione })
             .then(res => {
                 console.log(res);
 
