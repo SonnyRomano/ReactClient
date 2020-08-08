@@ -71,7 +71,7 @@ export default class DettaglioAnnuncio extends Component {
         // Carica le immagini dell'annuncio dentro listOfImages
         for (let i = 0; i < 5; i++) {
             try {
-                this.listOfImages.push(src('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/img' + i + '.png'))
+                this.listOfImages.push('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/img' + i + '.png')
             }
             catch (err) {
                 console.log("Immagini finite")
