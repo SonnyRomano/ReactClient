@@ -39,7 +39,7 @@ export default class HomePage extends Component {
         console.log(ricerca);
 
         //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
-        axios.post(`http://127.0.0.1:9000/gestioneAnnunci/ricercaAnnunci`, { ricerca })
+        axios.post(`http://team-mars-server.herokuapp.com/gestioneAnnunci/ricercaAnnunci`, { ricerca })
             .then(res => {
                 console.log(res);
                 console.log(res.data);

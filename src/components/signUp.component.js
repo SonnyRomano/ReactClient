@@ -35,7 +35,7 @@ export default class SignUp extends Component {
 
         console.log(user);
 
-        axios.post(`http://127.0.0.1:9000/users/signUp`, { user })
+        axios.post(`http://team-mars-server.herokuapp.com/users/signUp`, { user })
             .then(res => {
                 console.log(res);
 

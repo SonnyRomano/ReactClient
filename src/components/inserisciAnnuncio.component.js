@@ -70,7 +70,7 @@ export default class InserisciAnnuncio extends Component {
             telefono: this.state.telefono
         }
 
-        axios.post(`http://127.0.0.1:9000/gestioneAnnunci/inserisciAnnuncio`, { annuncio })
+        axios.post(`http://team-mars-server.herokuapp.com/gestioneAnnunci/inserisciAnnuncio`, { annuncio })
             .then(res => {
                 console.log(res);
 
@@ -81,7 +81,7 @@ export default class InserisciAnnuncio extends Component {
                 }
                 formData.append('file', this.coverFile[0], 'Cover.png')
 
-                axios.post(`http://127.0.0.1:9000/gestioneAnnunci/uploadImmaginiAnnuncio`, formData)
+                axios.post(`http://team-mars-server.herokuapp.com/gestioneAnnunci/uploadImmaginiAnnuncio`, formData)
                     .then(res => {
                         console.log(res);
 
