@@ -70,13 +70,7 @@ export default class DettaglioAnnuncio extends Component {
 
         // Carica le immagini dell'annuncio dentro listOfImages
         for (let i = 0; i < 5; i++) {
-            try {
-                this.listOfImages.push('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/img' + i + '.png')
-            }
-            catch (err) {
-                console.log("Immagini finite")
-                break
-            }
+            this.listOfImages.push('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/img' + i + '.png')
         }
 
         // Calcola Prezzo
@@ -160,7 +154,9 @@ export default class DettaglioAnnuncio extends Component {
                             <div className="row">
                                 {
                                     this.listOfImages.map((img, index) =>
-                                        <img key={'img' + index} src={img} alt={index}></img>)
+                                        <img key={'img' + index} src={img} alt={index} onError={(e) => {
+                                            e.target.style.display = 'none'
+                                        }}></img>)
                                 }
                             </div>
                         </div>
