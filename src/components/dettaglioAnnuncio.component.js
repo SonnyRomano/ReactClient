@@ -97,7 +97,7 @@ export default class DettaglioAnnuncio extends Component {
                             <div className="container">
                                 <div className="row">
                                     <div className="col-md-7">
-                                        <img className="img-fluid" style={{ width: '100%', padding: '1.3rem' }} key={'img' + this.state.idAnnuncio} src={require('../../images/ID' + this.state.idAnnuncio + '/Cover.png')} alt="CoverImage" ></img>
+                                        <img className="img-fluid" style={{ width: '100%', padding: '1.3rem' }} key={'img' + this.state.idAnnuncio} src={'https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/Cover.png'} alt="CoverImage" ></img>
                                     </div>
                                     <div className="col-md-5">
                                         <h4 className="my-3">Descrizione:</h4>
