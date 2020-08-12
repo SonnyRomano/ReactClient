@@ -13,7 +13,7 @@ export default class Navbar extends Component {
         if (!flag) setVisibility = "none"
 
         var arrayBottoni = document.getElementsByName("BottoniProprietario")
-        for (let e of arrayBottoni) e.style.display = setVisibility
+        for (let i = 0; i < arrayBottoni.length; i++) arrayBottoni[i].style.display = setVisibility
         //console.log("hiddenButton pressed")
         return true
     }
