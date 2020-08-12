@@ -37,29 +37,34 @@ export default class DettaglioAnnuncio extends Component {
     }
 
     effettuaPrenotazione() {
-        const prenotazione = {
-            idAnnuncio: this.state.idAnnuncio,
-            idProprietario: this.state.idProprietario,
-            idCliente: sessionStorage.getItem('id'),
-            dateFrom: dateFormat(this.datiPrenotazione.dateFrom, "yyyy-mm-dd"),
-            dateTo: dateFormat(this.datiPrenotazione.dateTo, "yyyy-mm-dd"),
-            costoTotale: this.costoTotale
-        };
 
-        console.log(prenotazione);
+        if (sessionStorage.getItem('id') == null) window.alert("Devi esser loggato per poter prenotare")
+        else {
 
-        //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
-        axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/effettuaPrenotazione`, { prenotazione })
-            .then(res => {
-                console.log(res);
+            const prenotazione = {
+                idAnnuncio: this.state.idAnnuncio,
+                idProprietario: this.state.idProprietario,
+                idCliente: sessionStorage.getItem('id'),
+                dateFrom: dateFormat(this.datiPrenotazione.dateFrom, "yyyy-mm-dd"),
+                dateTo: dateFormat(this.datiPrenotazione.dateTo, "yyyy-mm-dd"),
+                costoTotale: this.costoTotale
+            };
 
-                alert("Prenotazione Effettuata con Successo")
+            console.log(prenotazione);
 
-                this.props.history.push("/")
-            })
-            .catch(err => {
-                console.log("Error = ", err);
-            })
+            //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
+            axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/effettuaPrenotazione`, { prenotazione })
+                .then(res => {
+                    console.log(res);
+
+                    alert("Prenotazione Effettuata con Successo")
+
+                    this.props.history.push("/")
+                })
+                .catch(err => {
+                    console.log("Error = ", err);
+                })
+        }
     }
 
 
