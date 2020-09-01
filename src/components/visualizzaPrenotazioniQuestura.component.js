@@ -23,7 +23,7 @@ export default class VisualizzaPrenotazioniQuestura extends Component {
           <div className="shadow card mb-3" key={'li' + d.idPrenotazione}>
             <div className="row no-gutters">
               <div className='col-md-4' key={'div' + d.idPrenotazione}>
-                <img className="card-img" key={'img' + d.idPrenotazione} src={require('../../../images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage" style={{ height: '100%', backgroundSize: 'cover' }} />
+                <img className="card-img" key={'img' + d.idPrenotazione} src={require('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage" style={{ height: '100%', backgroundSize: 'cover' }} />
               </div>
               <div className="col-md-8">
                 <div className="card-body">

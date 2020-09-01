@@ -99,7 +99,7 @@ export default class DettaglioAnnuncio extends Component {
         const path = require.context('../../../images', true)
         for (let i = 0; i < 5; i++) {
           try {
-            var joined = this.state.listOfImages.concat(path('./ID' + this.state.idAnnuncio + '/img' + i + '.png'));
+            var joined = this.state.listOfImages.concat(path('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/img' + i + '.png'));
             this.setState({ listOfImages: joined })
           }
           catch (err) {
@@ -108,7 +108,7 @@ export default class DettaglioAnnuncio extends Component {
           }
         }
 
-        this.setState({ CoverImg: require('../../../images/ID' + this.state.idAnnuncio + '/Cover.png') })
+        this.setState({ CoverImg: require('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/Cover.png') })
 
 
         axios.post(`https://team-mars-client.herokuapp.com/gestionePrenotazioni/recuperaPrenotazioni`, { id })

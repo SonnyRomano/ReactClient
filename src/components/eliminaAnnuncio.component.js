@@ -22,7 +22,7 @@ export default class EliminaAnnuncio extends Component {
                         <div key={'a' + d.idAnnuncio} className="list-group-item list-group-item-action " style={{ marginTop: '1rem', marginBottom: '1rem', background: '#E6E6FA' }}>
                             <div className='row' >
                                 <div className='col-6' key={'div' + d.idAnnuncio} style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                                    <img key={'img' + d.idAnnuncio} style={{ width: '100%' }} src={require('../../../images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage"  ></img>
+                                    <img key={'img' + d.idAnnuncio} style={{ width: '100%' }} src={require('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage"  ></img>
                                 </div>
                                 <div className='col-6' style={{ marginTop: '2rem' }}>
                                     <h5>- ID Annuncio: {d.idAnnuncio} <br></br>- Città: {d.citta}<br></br> - Indirizzo: {d.indirizzo}<br></br>- Costo Giornaliero: {d.costo} € </h5>

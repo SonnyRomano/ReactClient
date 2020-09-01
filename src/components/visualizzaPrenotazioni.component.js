@@ -23,7 +23,7 @@ export default class VisualizzaPrenotazioni extends Component {
             <div className="row no-gutters">
               <div className="col-md-4">
                 <a href={'/gestioneAnnunci/dettaglioAnnuncio?id=' + d.idAnnuncio}>
-                  <img className="card-img" src={require('../../../images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage" style={{ height: '100%', backgroundSize: 'cover' }} />
+                  <img className="card-img" src={require('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage" style={{ height: '100%', backgroundSize: 'cover' }} />
                 </a>
               </div>
               <div className="col-md-8">
@@ -41,7 +41,7 @@ export default class VisualizzaPrenotazioni extends Component {
           //   <div key={'a' + d.idPrenotazione} className="list-group-item list-group-item-action " style={{ marginTop: '1rem', marginBottom: '1rem', background: '#E6E6FA' }}>
           //     <div className='row'>
           //       <div className='col-6' key={'div' + d.idPrenotazione} style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-          //         <img key={'img' + d.idPrenotazione} style={{ width: '100%' }} src={require('../../../images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage" />
+          //         <img key={'img' + d.idPrenotazione} style={{ width: '100%' }} src={require('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage" />
           //       </div>
           //       <div className='col-6' style={{ marginTop: '2rem' }}>
           //         <h5>- ID Annuncio: {d.idAnnuncio} <br></br>- ID Prenotazione: {d.idPrenotazione} <br></br>- idCliente: {d.idCliente}<br></br> - Inizio Prenotazione: {d.dateFrom}<br></br> - Fine Prenotazione: {d.dateTo}<br></br>- Prezzo Pagato: {d.costo} € </h5>
