@@ -62,7 +62,7 @@ export default class RiepilogoPrenotazione extends Component {
               ID proprietario: {this.datiPrenotazione.idProprietario}<br />
               Inizio prenotazione: {dateFormat(this.datiPrenotazione.dateFrom, "dd/mm/yyyy")}<br />
               Fine prenotazione: {dateFormat(this.datiPrenotazione.dateTo, "dd/mm/yyyy")}<br />
-              Numero di ospiti: {this.datiPagamento.n_posti}
+              Numero di ospiti: {this.datiPrenotazione.n_posti}
             </p>
           </div>
 
