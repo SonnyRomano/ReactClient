@@ -88,7 +88,7 @@ export default class PaginaRicerca extends Component {
 
         <div className="col mb-4" key={d.idAnnuncio}>
           <div className="card h-100" onClick={() => this.handleClick(d)}>
-            <img src={require('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png')} className="card-img-top" alt="..." />
+            <img src={'https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png'} className="card-img-top" alt="..." />
             <div className="card-body p-3">
               <h5 className="card-title">{d.titolo}</h5>
               <p className="card-text text-muted">Da €{d.costo}</p>

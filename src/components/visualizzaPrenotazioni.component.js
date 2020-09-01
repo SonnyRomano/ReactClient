@@ -23,7 +23,7 @@ export default class VisualizzaPrenotazioni extends Component {
             <div className="row no-gutters">
               <div className="col-md-4">
                 <a href={'/gestioneAnnunci/dettaglioAnnuncio?id=' + d.idAnnuncio}>
-                  <img className="card-img" src={require('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage" style={{ height: '100%', backgroundSize: 'cover' }} />
+                  <img className="card-img" src={'https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png'} alt="CoverImage" style={{ height: '100%', backgroundSize: 'cover' }} />
                 </a>
               </div>
               <div className="col-md-8">
