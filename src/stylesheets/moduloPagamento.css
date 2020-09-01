@@ -1,0 +1,21 @@
+.icon-container {
+	font-size: 24px;
+}
+
+.fa-cc-visa {
+    color:navy;
+}
+
+.fa-cc-amex {
+    color:blue;
+}
+
+.fa-cc-mastercard {
+    color:red;
+}
+
+.fa-cc-discover {
+    color:orange;
+}
+
+

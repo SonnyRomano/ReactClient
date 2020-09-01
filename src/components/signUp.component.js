@@ -35,7 +35,7 @@ export default class SignUp extends Component {
 
         console.log(user);
 
-        axios.post(`https://team-mars-server.herokuapp.com/users/signUp`, { user })
+        axios.post(`https://team-mars-client.herokuapp.com/users/signUp`, { user })
             .then(res => {
                 console.log(res);
 

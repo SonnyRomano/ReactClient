@@ -1,66 +1,86 @@
 import React, { Component } from "react";
-import '../stylesheets/index.css';
+// import '../stylesheets/index.css';
 import axios from 'axios';
+import checkRoutingAccess from '../utility/checkRoutingAccess'
 
 export default class PaginaRicercaProprietario extends Component {
 
-    state = {
-        listItems: '',
-    }
+  state = {
+    listItems: '',
+  }
 
-    componentWillMount() {
+  //Il metodo componentDidMount () viene chiamato dopo il rendering del componente.
+  componentDidMount() {
 
-        let idProprietario = sessionStorage.getItem('id')
+    checkRoutingAccess(this.props)
 
-        //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
-        axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/ricercaAnnunciProprietario`, { idProprietario })
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-                const listItems = res.data.map((d) =>
-                    <li key={'li' + d.idAnnuncio} className="list-group-item" style={{ marginBottom: '4rem' }}>
-                        <div key={'a' + d.idAnnuncio} className="list-group-item list-group-item-action " style={{ marginTop: '1rem', marginBottom: '1rem', background: '#E6E6FA' }}>
-                            <div className='row' >
-                                <div className='col-6' key={'div' + d.idAnnuncio} style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                                    <img key={'img' + d.idAnnuncio} style={{ width: '100%' }} src={'https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + d.idAnnuncio + '/Cover.png'} alt="CoverImage"  ></img>
-                                </div>
-                                <div className='col-6' style={{ marginTop: '2rem' }}>
-                                    <h5>- ID Annuncio: {d.idAnnuncio} <br></br>- Città: {d.citta}<br></br> - Indirizzo: {d.indirizzo}<br></br>- Costo Giornaliero: {d.costo} € </h5>
-                                    <button onClick={() => this.handleClick(d)} type="button" className="btn btn-lg btn-danger">Modifica</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                );
-                this.setState({
-                    listItems: listItems,
-                });
-            })
-            .catch(err => {
-                console.log("Error = ", err)
-            })
-    }
+    let idProprietario = sessionStorage.getItem('id')
 
-    handleClick(info) { //React passa i dati dell'annuncio alla  successiva pagina visualizza dettaglio annuncio
-        this.props.history.push('/gestioneAnnunci/modificaAnnuncio', info);
-    }
+    //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
+    axios.post(`https://team-mars-client.herokuapp.com/gestioneAnnunci/ricercaAnnunciProprietario`, { idProprietario })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
 
-    render() {
-
-        return (
-            <div className="container justify-content-center">
-                <div className="col-md-9 py-5 " style={{ marginLeft: '12.5%' }}>
-                    <div className="card" style={{ background: '#FFFACD' }}>
-                        <div className="card-body" style={{ padding: '2rem' }}>
-                            <h1 className="h2" style={{ padding: '1rem', textAlign: 'center' }}>Modifica Annunci:</h1>
-                            <h1 className="h5" style={{ padding: '1rem', textAlign: 'left', marginBottom: '2rem' }}>Questa lista contiene tutti i tuoi annunci pubblicati; seleziona quale desideri modificare:</h1>
-                            <div className="list-group" >
-                                {this.state.listItems}
-                            </div>
-                        </div>
-                    </div>
+        const listItems = res.data.map((d) =>
+          <div className="shadow card mb-3" key={d.idAnnuncio}>
+            <div className="row no-gutters">
+              <div className="col-md-4">
+                <a href={'/gestioneAnnunci/dettaglioAnnuncio?id=' + d.idAnnuncio}>
+                  <img className="card-img" src={require('../../../images/ID' + d.idAnnuncio + '/Cover.png')} alt="CoverImage" style={{ height: '100%', backgroundSize: 'cover' }} />
+                </a>
+              </div>
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h5 className="card-title">{d.titolo}</h5>
+                  <p className="card-text">{d.indirizzo}<br />{d.cap} {d.citta}</p>
+                  <button onClick={() => this.handleClickModify(d)} type="button" className="btn btn-secondary mb-2">Modifica</button>
+                  <button onClick={() => this.handleClickRemove(d.idAnnuncio)} type="button" className="btn btn-danger">Elimina</button>
                 </div>
+              </div>
             </div>
+          </div>
         );
+
+        this.setState({
+          listItems: listItems,
+        });
+      })
+      .catch(err => {
+        console.log("Error = ", err)
+      })
+  }
+
+  handleClickModify(info) { //React passa i dati dell'annuncio alla  successiva pagina visualizza dettaglio annuncio
+    this.props.history.push('/gestioneAnnunci/modificaAnnuncio', info);
+  }
+
+  handleClickRemove(idAnnuncio) {
+    if (window.confirm('Sei sicuro di voler eliminare questo annuncio?')) {
+      axios.post(`https://team-mars-client.herokuapp.com/gestioneAnnunci/eliminaAnnuncio`, { idAnnuncio })
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          window.confirm('Annuncio eliminato');
+          window.location.reload(false);
+        })
+        .catch(err => {
+          console.log("Error = ", err)
+          window.confirm('Errore! Operazione annullata');
+        })
     }
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="container-fluid p-3" style={{ backgroundColor: '#f2f2f2' }} >
+          <h1 className="display-4 text-center mb-3">I Tuoi Annunci</h1>
+          <a className="btn btn-primary btn-block mb-3" href="/gestioneAnnunci/visualizzaPrenotazioni">Prenotazioni pendenti</a>
+          <a className="btn btn-success btn-block mb-3" href='/gestioneAnnunci/inserisciAnnuncio'>Aggiungi annuncio</a>
+          {this.state.listItems}
+        </div>
+      </div>
+    );
+  }
 }
