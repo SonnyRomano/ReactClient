@@ -96,10 +96,9 @@ export default class DettaglioAnnuncio extends Component {
         console.log(this.state)
 
         // Carica le immagini dell'annuncio dentro listOfImages
-        const path = require.context('../../../images', true)
         for (let i = 0; i < 5; i++) {
           try {
-            var joined = this.state.listOfImages.concat(path('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/img' + i + '.png'));
+            var joined = this.state.listOfImages.concat('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/img' + i + '.png');
             this.setState({ listOfImages: joined })
           }
           catch (err) {
