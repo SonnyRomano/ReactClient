@@ -26,7 +26,7 @@ export default class Login extends Component {
     };
     console.log(user);
 
-    axios.post(`https://team-mars-client.herokuapp.com/users/login`, { user })
+    axios.post(`https://team-mars-server.herokuapp.com/users/login`, { user })
       .then(res => {
         console.log(res);
         console.log(res.data);

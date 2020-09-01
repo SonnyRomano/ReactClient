@@ -19,7 +19,7 @@ export default class RendicontaTasse extends Component {
         };
 
         //Effettua un post passandogli i dati
-        axios.post(`https://team-mars-client.herokuapp.com/gestioneLegale/rendicontaTasseSoggiorno`, { dataReq })
+        axios.post(`https://team-mars-server.herokuapp.com/gestioneLegale/rendicontaTasseSoggiorno`, { dataReq })
             .then(res => {
 
                 const tassa = '3'    //suppongo tassa fissa da versare di 3 euro per ogni ospite in ciascuna prenotazione

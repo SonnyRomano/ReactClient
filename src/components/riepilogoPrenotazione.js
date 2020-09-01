@@ -22,7 +22,7 @@ export default class RiepilogoPrenotazione extends Component {
     }
 
     //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
-    axios.post(`https://team-mars-client.herokuapp.com/gestionePrenotazioni/effettuaPrenotazione`, { datiPrenotazione })
+    axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/effettuaPrenotazione`, { datiPrenotazione })
       .then(res => {
         console.log(res);
 

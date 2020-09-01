@@ -11,7 +11,7 @@ export default class DiventaHost extends Component {
 
         let id = sessionStorage.getItem("id")
 
-        axios.post(`https://team-mars-client.herokuapp.com/users/diventaHost`, { id })
+        axios.post(`https://team-mars-server.herokuapp.com/users/diventaHost`, { id })
             .then(res => {
                 console.log(res);
                 console.log(res.data);

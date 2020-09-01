@@ -30,7 +30,7 @@ export default class FormUfficioTurismo extends Component {
 
     console.log(dati)
 
-    axios.post(`https://team-mars-client.herokuapp.com/gestioneLegale/pagaTasseSoggiorno`, { dati })
+    axios.post(`https://team-mars-server.herokuapp.com/gestioneLegale/pagaTasseSoggiorno`, { dati })
       .then(res => {
         console.log(res);
         alert('Tasse versate a ufficio turismo e mail inviata');

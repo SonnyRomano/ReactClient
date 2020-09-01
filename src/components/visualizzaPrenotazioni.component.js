@@ -14,7 +14,7 @@ export default class VisualizzaPrenotazioni extends Component {
     let idProprietario = sessionStorage.getItem('id')
 
     //Effettua un post passandogli i dati tramite l'id proprietario
-    axios.post(`https://team-mars-client.herokuapp.com/gestionePrenotazioni/visualizzaPrenotazioniProprietario`, { idProprietario })
+    axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/visualizzaPrenotazioniProprietario`, { idProprietario })
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -74,7 +74,7 @@ export default class VisualizzaPrenotazioni extends Component {
       idPagamento: d.idPagamento,
       idProprietario: d.idProprietario
     };
-    axios.post(`https://team-mars-client.herokuapp.com/gestionePrenotazioni/confermaPrenotazione`, { confermaP })
+    axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/confermaPrenotazione`, { confermaP })
       .then(res => {
         console.log(res);
 
@@ -92,7 +92,7 @@ export default class VisualizzaPrenotazioni extends Component {
       idPrenotazione: d.idPrenotazione,
       idCliente: d.idCliente,
     };
-    axios.post(`https://team-mars-client.herokuapp.com/gestionePrenotazioni/annullaPrenotazione`, { annullaP })
+    axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/annullaPrenotazione`, { annullaP })
       .then(res => {
         console.log(res);
 

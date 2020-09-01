@@ -15,7 +15,7 @@ export default class VisualizzaPrenotazioniQuestura extends Component {
     let idProprietario = sessionStorage.getItem('id')
 
     //Effettua un post passandogli i dati tramite l'id proprietario
-    axios.post(`https://team-mars-client.herokuapp.com/gestioneLegale/visualizzaPrenotazioniQuestura`, { idProprietario })
+    axios.post(`https://team-mars-server.herokuapp.com/gestioneLegale/visualizzaPrenotazioniQuestura`, { idProprietario })
       .then(res => {
         console.log(res);
         console.log(res.data);

@@ -46,7 +46,7 @@ export default class moduloPagamento extends React.Component {
 
     console.log(pagamento);
 
-    axios.post('https://team-mars-client.herokuapp.com/gestionePagamenti/insPagamento', { pagamento })
+    axios.post('https://team-mars-server.herokuapp.com/gestionePagamenti/insPagamento', { pagamento })
       .then(res => {
         console.log(res);
 

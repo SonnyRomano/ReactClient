@@ -44,7 +44,7 @@ export default class FormQuestura extends Component {
 
     console.log(dati)
 
-    axios.post(`https://team-mars-client.herokuapp.com/gestioneLegale/invioDatiQuestura`, { dati })
+    axios.post(`https://team-mars-server.herokuapp.com/gestioneLegale/invioDatiQuestura`, { dati })
       .then(res => {
         console.log(res);
       })

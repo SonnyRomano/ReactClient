@@ -81,7 +81,7 @@ export default class ModificaAnnuncio extends Component {
     }
     console.log(annuncio)
 
-    axios.post(`https://team-mars-client.herokuapp.com/gestioneAnnunci/aggiornaAnnuncio`, { annuncio })
+    axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/aggiornaAnnuncio`, { annuncio })
       .then(res => {
         console.log(res);
         alert('Annuncio aggiornato con successo!')

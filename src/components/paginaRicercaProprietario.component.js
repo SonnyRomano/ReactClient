@@ -17,7 +17,7 @@ export default class PaginaRicercaProprietario extends Component {
     let idProprietario = sessionStorage.getItem('id')
 
     //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
-    axios.post(`https://team-mars-client.herokuapp.com/gestioneAnnunci/ricercaAnnunciProprietario`, { idProprietario })
+    axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/ricercaAnnunciProprietario`, { idProprietario })
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -57,7 +57,7 @@ export default class PaginaRicercaProprietario extends Component {
 
   handleClickRemove(idAnnuncio) {
     if (window.confirm('Sei sicuro di voler eliminare questo annuncio?')) {
-      axios.post(`https://team-mars-client.herokuapp.com/gestioneAnnunci/eliminaAnnuncio`, { idAnnuncio })
+      axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/eliminaAnnuncio`, { idAnnuncio })
         .then(res => {
           console.log(res);
           console.log(res.data);

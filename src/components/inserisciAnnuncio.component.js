@@ -79,7 +79,7 @@ export default class InserisciAnnuncio extends Component {
       costo: this.state.costo
     }
 
-    axios.post(`https://team-mars-client.herokuapp.com/gestioneAnnunci/inserisciAnnuncio`, { annuncio })
+    axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/inserisciAnnuncio`, { annuncio })
       .then(res => {
         console.log(res);
 
@@ -90,7 +90,7 @@ export default class InserisciAnnuncio extends Component {
         }
         formData.append('file', this.coverFile[0], 'Cover.png')
 
-        axios.post(`https://team-mars-client.herokuapp.com/gestioneAnnunci/uploadImmaginiAnnuncio`, formData)
+        axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/uploadImmaginiAnnuncio`, formData)
           .then(res => {
             console.log(res);
 

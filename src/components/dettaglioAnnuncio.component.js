@@ -68,7 +68,7 @@ export default class DettaglioAnnuncio extends Component {
     let values = queryString.parse(this.props.location.search)
     let id = values.id
 
-    axios.post(`https://team-mars-client.herokuapp.com/gestioneAnnunci/recuperaAnnuncio`, { id })
+    axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/recuperaAnnuncio`, { id })
       .then(res => {
 
         this.setState({
@@ -110,7 +110,7 @@ export default class DettaglioAnnuncio extends Component {
         this.setState({ CoverImg: 'https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/Cover.png' })
 
 
-        axios.post(`https://team-mars-client.herokuapp.com/gestionePrenotazioni/recuperaPrenotazioni`, { id })
+        axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/recuperaPrenotazioni`, { id })
           .then(res => {
             this.setState({ dateOccupate: res.data })
           })

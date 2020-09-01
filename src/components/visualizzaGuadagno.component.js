@@ -16,7 +16,7 @@ export default class VisualizzaGuadagno extends Component {
         let idProprietario = sessionStorage.getItem('id')
 
         //Effettua un post passandogli i dati tramite l'id proprietario
-        axios.post(`https://team-mars-client.herokuapp.com/gestionePrenotazioni/visualizzaGuadagnoProprietario`, { idProprietario })
+        axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/visualizzaGuadagnoProprietario`, { idProprietario })
             .then(res => {
                 console.log(res);
                 console.log(res.data);
