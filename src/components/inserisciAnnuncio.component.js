@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import '../stylesheets/gestioneAnnunci.css';
+// import '../stylesheets/gestioneAnnunci.css';
 import checkRoutingAccess from '../utility/checkRoutingAccess';
 
 export default class InserisciAnnuncio extends Component {
@@ -27,7 +27,8 @@ export default class InserisciAnnuncio extends Component {
     descrizione: '',
     titolo: '',
     telefono: '',
-    costo: ''
+    costo: '',
+    tassa: ''
   }
 
   //Controlla inserimento date Check-in e Check-out
@@ -76,7 +77,8 @@ export default class InserisciAnnuncio extends Component {
       accessibile: this.state.accessibile,
       descrizione: this.state.descrizione,
       titolo: this.state.titolo,
-      costo: this.state.costo
+      costo: this.state.costo,
+      tassa: this.state.tassa
     }
 
     axios.post(`https://team-mars-server.herokuapp.com/gestioneAnnunci/inserisciAnnuncio`, { annuncio })
@@ -202,12 +204,21 @@ export default class InserisciAnnuncio extends Component {
 
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label>Prezzo giornaliero</label>
+                <label>Prezzo Giornaliero</label>
                 <div className="input-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text">€</span>
                   </div>
                   <input className="form-control rounded-right" name="costo" value={this.state.costo} type='number' onChange={this.handleChange} required />
+                </div>
+              </div>
+              <div className="form-group col-md-6">
+                <label>Tassa di Soggiorno</label>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">€</span>
+                  </div>
+                  <input className="form-control rounded-right" name="tassa" value={this.state.tassa} type='number' onChange={this.handleChange} required />
                 </div>
               </div>
             </div>
@@ -228,17 +239,6 @@ export default class InserisciAnnuncio extends Component {
                 </div>
               </div>
             </div>
-
-            {/* <div className="form-row">
-              <div className="col-6">
-                <label htmlFor="img">Seleziona Cover Annuncio:</label>
-                <input type="file" id="cover" name="cover" accept="image/*" onChange={this.onCoverChange} required />
-              </div>
-              <div className="col-6">
-                <label htmlFor="img">Seleziona immagini:</label>
-                <input type="file" id="img" name="img" accept="image/*" multiple onChange={this.onImageChange} required />
-              </div>
-            </div> */}
 
             <div className="form-group">
               <label>Titolo annuncio</label>

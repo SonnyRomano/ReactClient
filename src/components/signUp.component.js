@@ -42,8 +42,9 @@ export default class SignUp extends Component {
                 // Set dell'id utente nella sessione corrente
                 sessionStorage.clear();
                 sessionStorage.setItem('id', res.data);
+                sessionStorage.setItem('email', res.data.email);
                 sessionStorage.setItem('isHost', false);
-                console.log('ID: ' + sessionStorage.getItem('id') + '  -  isHost: ' + sessionStorage.getItem('isHost'));
+                console.log('ID: ' + sessionStorage.getItem('id') + '  -  isHost: ' + sessionStorage.getItem('isHost') + '  -  email: ' + sessionStorage.getItem('email'));
 
                 window.location.reload(false);
                 // Chiude la schermata di Registrazione
@@ -69,7 +70,7 @@ export default class SignUp extends Component {
                     <div className="container">
                         <div className="form-group">
                             <label htmlFor="email">E-mail</label>
-                            <input name="email" id="email" type="email" className="form-control" maxLength="40"
+                            <input name="email" id="emailInput" type="email" className="form-control" maxLength="40"
                                 pattern="^[A-z]+.*@[A-z]+.*\.[A-z]+.*$" onChange={this.handleChange} required />
                         </div>
 

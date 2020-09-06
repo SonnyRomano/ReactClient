@@ -8,7 +8,7 @@ export default class EliminaAnnuncio extends Component {
         listItems: '',
     }
 
-    componentWillMount() {
+    componentDidmount() {
 
         let idProprietario = sessionStorage.getItem('id')
 
@@ -30,7 +30,7 @@ export default class EliminaAnnuncio extends Component {
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li >
                 );
                 this.setState({
                     listItems: listItems,

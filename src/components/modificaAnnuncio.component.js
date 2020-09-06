@@ -91,9 +91,7 @@ export default class ModificaAnnuncio extends Component {
 
   componentDidMount() {
     checkRoutingAccess(this.props)
-  }
-
-  componentWillMount() {
+    if (this.props.history.action === 'POP') this.props.history.push('/')
     this.setState(this.props.location.state, () => { console.log(this.state) }); //Copia i dati dei risultati della ricerca nello state della pagina passati dal push
   }
 
@@ -197,6 +195,15 @@ export default class ModificaAnnuncio extends Component {
                     <span className="input-group-text">€</span>
                   </div>
                   <input className="form-control rounded-right" name="costo" value={this.state.costo} type='number' onChange={this.handleChange} required />
+                </div>
+              </div>
+              <div className="form-group col-md-6">
+                <label>Tassa di Soggiorno</label>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">€</span>
+                  </div>
+                  <input className="form-control rounded-right" name="tassa" value={this.state.tassa} type='number' onChange={this.handleChange} required />
                 </div>
               </div>
             </div>

@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-// import '../stylesheets/index.css';
 import axios from 'axios';
 import dateFormat from 'dateformat'
 
 export default class RiepilogoPrenotazione extends Component {
+
+  state = {
+    tasseSoggiorno: 0,
+    pagaInLoco: false
+  }
 
   datiPrenotazione = []
   datiPagamento = []
@@ -17,31 +21,58 @@ export default class RiepilogoPrenotazione extends Component {
       dateFrom: this.datiPrenotazione.dateFrom,
       dateTo: this.datiPrenotazione.dateTo,
       costoTotale: this.datiPrenotazione.costoTotale,
-      n_ospiti: this.datiPrenotazione.n_ospiti,
+      n_adulti: this.datiPrenotazione.n_adulti,
+      n_bambini: this.datiPrenotazione.n_bambini,
       idPagamento: this.datiPagamento.idPagamento
     }
 
-    //Effettua un post passandogli i dati tramite l'oggetto "ricerca"
-    axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/effettuaPrenotazione`, { datiPrenotazione })
+    let pagamento = this.datiPagamento
+
+    axios.post('https://team-mars-server.herokuapp.com/gestionePagamenti/insPagamento', { pagamento })
       .then(res => {
         console.log(res);
 
-        alert("Prenotazione Effettuata con Successo")
+        datiPrenotazione.idPagamento = res.data
 
-        this.props.history.push("/")
-      })
-      .catch(err => {
-        console.log("Error = ", err);
+        // Effettua un post passandogli i dati tramite l'oggetto "ricerca"
+        axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/effettuaPrenotazione`, { datiPrenotazione })
+          .then(res => {
+            console.log(res);
+
+            alert("Prenotazione Effettuata con Successo")
+
+            this.props.history.push("/")
+          })
+          .catch(err => {
+            console.log("Error = ", err);
+          })
       })
   }
 
   componentDidMount() {
-    // Controlla se la pagina è stata chiamata correttamente o tramite inserimento manuale
-    // if (this.props.history.action === 'POP') {
-    //   this.props.history.push('/')
-    // }
+    if (this.props.history.action === 'POP') this.props.history.push('/')
+
+    this.setState({ tasseSoggiorno: this.datiPrenotazione.tassa * this.diffDays(this.datiPrenotazione.dateTo, this.datiPrenotazione.dateFrom) * this.datiPrenotazione.n_adulti })
   }
 
+  diffDays(dateTo, dateFrom) {
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    let firstDate = new Date(dateTo);
+    let secondDate = new Date(dateFrom);
+
+    return Math.round(Math.abs((firstDate - secondDate) / oneDay));
+  }
+
+  handleChange = event => {
+    this.setState({ pagaInLoco: !this.state.pagaInLoco })
+
+    if (this.state.pagaInLoco === true) {
+      this.datiPrenotazione.costoTotale += this.state.tasseSoggiorno
+    } else {
+      this.datiPrenotazione.costoTotale -= this.state.tasseSoggiorno
+    }
+
+  }
 
   render() {
     this.datiPrenotazione = this.props.location.state[0];
@@ -62,7 +93,8 @@ export default class RiepilogoPrenotazione extends Component {
               ID proprietario: {this.datiPrenotazione.idProprietario}<br />
               Inizio prenotazione: {dateFormat(this.datiPrenotazione.dateFrom, "dd/mm/yyyy")}<br />
               Fine prenotazione: {dateFormat(this.datiPrenotazione.dateTo, "dd/mm/yyyy")}<br />
-              Numero di ospiti: {this.datiPrenotazione.n_posti}
+              {/* Numero di ospiti: {parseInt(this.datiPrenotazione.n_adulti, 10) + parseInt(this.datiPrenotazione.n_bambini, 10)} */}
+              Ospiti: {this.datiPrenotazione.n_adulti} {this.datiPrenotazione.n_adulti === 1 ? 'adulto' : 'adulti'}, {this.datiPrenotazione.n_bambini} {this.datiPrenotazione.n_bambini === 1 ? 'bambino' : 'bambini'}
             </p>
           </div>
 
@@ -87,8 +119,15 @@ export default class RiepilogoPrenotazione extends Component {
               {this.datiPagamento.cardname}
             </p>
           </div>
-
         </div>
+
+        <div className="form-check mb-3">
+          <input className="form-check-input" type="checkbox" value="" id="impostaSoggiorno" onChange={this.handleChange} />
+          <label className="form-check-label" htmlFor="impostaSoggiorno">Paga le tasse di soggiorno in loco</label>
+        </div>
+
+        {this.state.pagaInLoco === true ? <p className="lead text-center"><del>Tasse di soggiorno: {this.state.tasseSoggiorno} €</del></p> : <p className="lead text-center">Tasse di soggiorno: {this.state.tasseSoggiorno} €</p>}
+
         <p className="lead text-center">Totale: {this.datiPrenotazione.costoTotale} €</p>
 
         <button type="button" className="btn btn-success btn-block" onClick={() => this.effettuaPrenotazione()}>Conferma prenotazione</button>

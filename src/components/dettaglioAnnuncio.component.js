@@ -30,6 +30,7 @@ export default class DettaglioAnnuncio extends Component {
     titolo: '',
     telefono: '',
     costo: '',
+    tassa: '',
 
     listOfImages: [],
     CoverImg: '',
@@ -91,12 +92,13 @@ export default class DettaglioAnnuncio extends Component {
           accessibile: res.data[0].accessibile,
           descrizione: res.data[0].descrizione,
           costo: res.data[0].costo,
-          titolo: res.data[0].titolo
+          titolo: res.data[0].titolo,
+          tassa: res.data[0].tassa
         })
         console.log(this.state)
 
         // Carica le immagini dell'annuncio dentro listOfImages
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 5; i++) {
           try {
             var joined = this.state.listOfImages.concat('https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/img' + i + '.png');
             this.setState({ listOfImages: joined })
@@ -107,8 +109,9 @@ export default class DettaglioAnnuncio extends Component {
           }
         }
 
-        this.setState({ CoverImg: 'https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/Cover.png' })
-
+        this.setState({
+          CoverImg: 'https://team-mars.s3.eu-west-3.amazonaws.com/images/ID' + this.state.idAnnuncio + '/Cover.png'
+        })
 
         axios.post(`https://team-mars-server.herokuapp.com/gestionePrenotazioni/recuperaPrenotazioni`, { id })
           .then(res => {
@@ -153,7 +156,9 @@ export default class DettaglioAnnuncio extends Component {
         dateFrom: dateFormat(this.state.datiPrenotazione.dateFrom, "yyyy-mm-dd"),
         dateTo: dateFormat(this.state.datiPrenotazione.dateTo, "yyyy-mm-dd"),
         costoTotale: this.state.costoTotale,
-        n_ospiti: this.state.datiPrenotazione.n_ospiti
+        n_adulti: this.state.datiPrenotazione.n_adulti,
+        n_bambini: this.state.datiPrenotazione.n_bambini,
+        tassa: this.state.tassa
       };
 
       console.log(prenotazione);
@@ -162,8 +167,7 @@ export default class DettaglioAnnuncio extends Component {
     }
   }
 
-
-  //Controlla inserimento date Check-in e Check-out
+  // Controlla inserimento date Check-in e Check-out
   dataControl() {
     var dataFrom = document.getElementById("dateFrom")
     var dataTo = document.getElementById("dateTo")
@@ -174,10 +178,13 @@ export default class DettaglioAnnuncio extends Component {
     let valueTemp = this.state.datiPrenotazione
 
     switch (event.target.name) {
-      case 'n_ospiti':
-        valueTemp.n_ospiti = event.target.value
+      case 'n_adulti':
+        valueTemp.n_adulti = event.target.value
         break
 
+      case 'n_bambini':
+        valueTemp.n_bambini = event.target.value
+        break
       case 'dateFrom':
         valueTemp.dateFrom = event.target.value
         break
@@ -235,7 +242,22 @@ export default class DettaglioAnnuncio extends Component {
 
     let diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
     // eslint-disable-next-line
-    this.state.costoTotale = this.state.costo * diffDays * this.state.datiPrenotazione.n_ospiti
+    this.state.costoTotale = this.state.costo * diffDays * (parseInt(this.state.datiPrenotazione.n_adulti, 10) + parseInt(this.state.datiPrenotazione.n_bambini, 10)) + this.state.tassa * parseInt(this.state.datiPrenotazione.n_adulti, 10) * diffDays
+
+    const photos = this.state.listOfImages.map((img) =>
+      <div className="carousel-item" key={img}>
+        <img src={img} className="d-block w-100" alt="..." />
+      </div>
+    )
+
+    const riepilogo = isNaN(this.state.costoTotale) ? null : (<div>
+      <p><u>{this.state.costo}€ x {diffDays} notti</u>: {this.state.costo * diffDays * (parseInt(this.state.datiPrenotazione.n_adulti, 10) + parseInt(this.state.datiPrenotazione.n_bambini, 10))}€<br />
+
+        <u>Tasse di soggiorno</u>: {this.state.tassa * diffDays * this.state.datiPrenotazione.n_adulti}€
+                  </p>
+      <hr />
+      <strong>Totale: {this.state.costoTotale}€</strong>
+    </div>)
 
     return (
       <div>
@@ -245,6 +267,23 @@ export default class DettaglioAnnuncio extends Component {
         </div>
         <div className="container shadow p-3 bg-white mb-5 rounded" style={{ background: '#f2f2f2' }}>
           <p className="text-muted" style={{ fontWeight: 600, textDecoration: 'underline' }}>{this.state.citta}</p>
+
+          <div id="carouselExampleControls" className="carousel slide mb-3" data-ride="carousel">
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <img src={this.state.CoverImg} className="d-block w-100" alt="..." />
+              </div>
+              {photos}
+            </div>
+            <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="sr-only">Previous</span>
+            </a>
+            <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="sr-only">Next</span>
+            </a>
+          </div>
 
           <div className="row mb-5 m-0" id="pics">
             <div className="col-md-6 px-0">
@@ -317,13 +356,14 @@ export default class DettaglioAnnuncio extends Component {
               <div className="border border-dark rounded shadow p-3">
                 <h3 className="mb-4">Aggiungi le date per conoscere i prezzi</h3>
                 <form>
+                  <p className="lead">€{this.state.costo} /notte</p>
                   <div className="form-group">
                     <div className="form-row">
                       <div className="col-6">
                         <label>Check-in</label>
                         <DatePicker
                           id="dateFrom" type="date" className="form-control" name="dateFrom"
-                          selected={moment(this.state.datiPrenotazione.dateFrom, 'YYYY-MM-DD').isValid() ? moment(this.state.datiPrenotazione.dateFrom, 'YYYY-MM-DD').toDate() : moment.now()}
+                          selected={moment(this.state.datiPrenotazione.dateFrom, 'YYYY-MM-DD').isValid() ? moment(this.state.datiPrenotazione.dateFrom, 'YYYY-MM-DD').toDate() : null}
                           minDate={moment(this.state.dateFrom, 'YYYY-MM-DD') > moment.now() ? moment(this.state.dateFrom, 'YYYY-MM-DD').toDate() : moment.now()}
                           maxDate={moment(this.state.dateTo, 'YYYY-MM-DD').toDate()}
                           onChange={(date) => this.handleChangeDate(date, true)}
@@ -335,7 +375,7 @@ export default class DettaglioAnnuncio extends Component {
                         <label>Check-out</label>
                         <DatePicker
                           id="dateTo" type="date" className="form-control" name="dateTo"
-                          selected={moment(this.state.datiPrenotazione.dateTo, 'YYYY-MM-DD').isValid() ? moment(this.state.datiPrenotazione.dateTo, 'YYYY-MM-DD').toDate() : moment.now()}
+                          selected={moment(this.state.datiPrenotazione.dateTo, 'YYYY-MM-DD').isValid() ? moment(this.state.datiPrenotazione.dateTo, 'YYYY-MM-DD').toDate() : null}
                           minDate={moment(this.state.datiPrenotazione.dateFrom, 'YYYY-MM-DD').isValid() ? moment(this.state.datiPrenotazione.dateFrom, 'YYYY-MM-DD').toDate() : moment.now()}
                           maxDate={moment(this.state.dateTo, 'YYYY-MM-DD').toDate()}
                           onChange={(date) => this.handleChangeDate(date, false)}
@@ -346,13 +386,18 @@ export default class DettaglioAnnuncio extends Component {
                   </div>
 
                   <div className="form-row col-6 p-0 mx-0 mb-3">
-                    <label>Ospiti</label>
-                    <input className="form-control" name="n_ospiti" type="number" min="1" max={this.state.n_posti} onChange={this.handleChange} value={this.state.datiPrenotazione.n_ospiti || ''} required />
+                    <label>Adulti</label>
+                    <input className="form-control" name="n_adulti" type="number" min="1" max={this.state.n_posti - this.state.datiPrenotazione.n_bambini || this.state.n_posti} onChange={this.handleChange} required />
+                  </div>
+                  <div className="form-row col-6 p-0 mx-0 mb-3">
+                    <label>Bambini</label>
+                    <input className="form-control" name="n_bambini" type="number" min="0" max={this.state.n_posti - this.state.datiPrenotazione.n_adulti || this.state.n_posti} onChange={this.handleChange} required />
                   </div>
 
-                  <p className="lead">€{this.state.costo} / notte</p>
-                  <button type="button" className="btn btn-success btn-lg" onClick={() => this.effettuaPrenotazione()}>Paga €{this.state.costoTotale} e affitta!</button>
+                  <button type="button" className="btn btn-success btn-lg mb-3" onClick={() => this.effettuaPrenotazione()}>Paga e affitta!</button>
                 </form>
+
+                {riepilogo}
               </div>
             </div>
           </div>
