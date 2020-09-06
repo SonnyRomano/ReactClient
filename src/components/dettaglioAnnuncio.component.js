@@ -249,7 +249,7 @@ export default class DettaglioAnnuncio extends Component {
         <img src={img} className="d-block w-100" alt="..." />
       </div>
     )
-
+    console.log(this.state.costoTotale)
     const riepilogo = isNaN(this.state.costoTotale) ? null : (<div>
       <p><u>{this.state.costo}€ x {diffDays} notti</u>: {this.state.costo * diffDays * (parseInt(this.state.datiPrenotazione.n_adulti, 10) + parseInt(this.state.datiPrenotazione.n_bambini, 10))}€<br />
 
